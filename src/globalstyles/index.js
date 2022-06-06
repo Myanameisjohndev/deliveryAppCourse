@@ -8,4 +8,5 @@ export const Background = styled.SafeAreaView`
     justify-content: center;
     align-items: center;
     background-color: ${({theme})=> theme.COLORS.BACKGROUND};
-`
+`;
+

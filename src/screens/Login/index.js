@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { Background } from '../../globalstyles';
 
@@ -23,6 +24,7 @@ const Login = () => {
         visible={visible}
         setVisible={setVisible}
       />
+      <Button title="Login" type="secondary"/>
     </Background>
   );
 }

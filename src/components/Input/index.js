@@ -13,7 +13,7 @@ const Input = ({
     ...rest
 }) => {
     return (
-        <InputView {...rest}>
+        <InputView {...rest} >
             {hasIcon === true ? (
                 <>
                     <TextInput
@@ -22,7 +22,7 @@ const Input = ({
                         onChangeText={setTextInput}
                         secureTextEntry={visible}
                     />
-                    <Button onPress={()=>setVisible(!visible)}>
+                    <Button onPress={() => setVisible(!visible)}>
                         {visible === true ? <Close /> : <Open />}
                     </Button>
                 </>
