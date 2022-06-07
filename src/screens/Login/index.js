@@ -11,6 +11,8 @@ import {
   SmallText,
   PressButton,
 } from '../../globalstyles';
+import { Alert } from 'react-native';
+import { useAppContext } from '../../context';
 
 const Login = () => {
 
@@ -19,6 +21,24 @@ const Login = () => {
   const [visible, setVisible] = useState(true);
   const [visibleCheck, setVisibleCheck] = useState(false);
   const navigation = useNavigation();
+  const { login } = useAppContext();
+
+  const validUser = () => {
+    if (email === '') {
+      Alert.alert(
+        'Erro ao efetuar o login',
+        'Por favor preencha o campo de e-mail',
+      )
+    } else if (password === '') {
+      Alert.alert(
+        'Erro ao efetuar o login',
+        'Por favor preencha o campo de senha',
+      )
+    } else {
+      login(email, password, visible);
+    }
+  }
+
   return (
     <Background >
       <Form>
@@ -36,10 +56,10 @@ const Login = () => {
           visible={visible}
           setVisible={setVisible}
         />
-        <Button title="Login" type="secondary" />
+        <Button onPress={() => validUser()} title="Login" type="secondary" />
         <FormOptions>
           <CheckBox value={visibleCheck} onValueChange={setVisibleCheck} />
-          <PressButton onPress={()=>navigation.navigate('Register')}>
+          <PressButton onPress={() => navigation.navigate('Register')}>
             <SmallText>Ainda não tem conta?</SmallText>
           </PressButton>
         </FormOptions>

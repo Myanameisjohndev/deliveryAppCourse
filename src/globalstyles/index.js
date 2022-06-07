@@ -37,7 +37,25 @@ export const SmallText = styled.Text`
     margin-left: 10px;
     color: ${({ theme }) => theme.COLORS.TEXT};
 `;
+
 export const PressButton = styled.TouchableOpacity``;
+
+export const Header = styled.SafeAreaView`
+    padding: 45px 35px;
+    width: 100%;
+    height: 35%;
+    justify-content: flex-end;
+`;
+
+export const Content = styled.SafeAreaView`
+    background-color: ${({theme})=>theme.COLORS. SECOND_BACKGROUND};
+    width: 100%;
+    height: 65%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    justify-content: space-between;
+`;
+
 
 
 

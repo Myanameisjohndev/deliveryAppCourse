@@ -6,7 +6,7 @@ import AuthRoutes from './auth.routes';
 
 const Route = () => {
     const { user } = useAppContext();
-    return !!user.name ? <AppRoutes/> : <AuthRoutes/>
+    return !!user ? <AppRoutes/> : <AuthRoutes/>
 }
 
 export default Route;
