@@ -4,7 +4,7 @@ import Arrow from '../../assets/ArrowRight.svg';
 
 const Product = ({ data, ...rest }) => {
     return(
-        <Container>
+        <Container {...rest}>
             <Img source={{uri: data.url}} resizeMode="center"/>
             <Column>
                 <Row>

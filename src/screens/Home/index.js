@@ -5,12 +5,13 @@ import { useAppContext } from '../../context';
 import { Background, Content, Header } from '../../globalstyles';
 import Product from '../../components/Product';
 import { FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
 
   const { user } = useAppContext();
   const [searchValue, setSearchValue] = useState('');
-
+  const navigation = useNavigation();
   const [products, setProducts] = useState([
     {
       url: "https://www.manollopizzaria.com.br/wp-content/uploads/2021/02/X_TUDO_DE_HAMBURGUER1-1-500x320.jpg",
@@ -49,6 +50,11 @@ const Home = () => {
     },
   ]);
 
+  const selectItem = (item) => {
+    // console.log(item)
+    navigation.navigate('SelectedProduct', { item });
+  }
+
   return (
     <Background >
       <Header>
@@ -68,7 +74,7 @@ const Home = () => {
           contentContainerStyle={{ paddingVertical: 20 }}
           data={products}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Product data={item} />}
+          renderItem={({ item }) => <Product data={item} onPress={()=>selectItem(item)} />}
         />
       </Content>
     </Background>
