@@ -9,6 +9,7 @@ const Context = createContext();
 function ContextProvider({ children }) {
 
     const [user, setUser] = useState();
+    const [addres, setAddres] = useState([]);
 
     const register = async (email, password, name) => {
         await firebase()
@@ -76,7 +77,7 @@ function ContextProvider({ children }) {
     })
 
     return (
-        <Context.Provider value={{ user, register, login }}>
+        <Context.Provider value={{ user, register, login, addres }}>
             {children}
         </Context.Provider>
     )

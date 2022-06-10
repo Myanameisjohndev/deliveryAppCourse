@@ -23,7 +23,7 @@ export const Image = styled.Image`
 export const ScrollDescription = styled.ScrollView.attrs({
     showsVerticalScrollIndicator: false,
 })`
-   margin-bottom: ${height * 0.3}px;
+   margin-bottom: ${height * 0.37}px;
 `;
 
 export const Title = styled.Text`
@@ -44,8 +44,9 @@ export const ContentAlign = styled.View`
 `;
 export const ColumButtons = styled.View`
    align-self: center;
+   justify-content: center;
    width: 90%;
-   margin-top: ${height * 0.4}px;
+   margin-top: ${height * 0.28}px;
    position: absolute;
    /* background-color: blue; */
    min-height: 100px;
@@ -72,6 +73,6 @@ export const Value = styled.Text`
 export const Row = styled.View`
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
+    /* width:0%; */
 `;
 

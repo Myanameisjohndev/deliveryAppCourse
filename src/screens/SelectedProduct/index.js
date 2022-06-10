@@ -15,11 +15,17 @@ import {
 } from './styles';
 import Add from '../../assets/add.svg';
 import Less from '../../assets/less.svg';
+import Button from '../../components/Button';
+import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useAppContext } from '../../context';
 
 const SelectedProduct = () => {
+    const { addres } = useAppContext();
     const { item } = useRoute().params;
     const [value, setValue] = useState(1);
     const [finalValue, setFinalValue] = useState();
+    const navigation = useNavigation();
 
     const addQuantity = () => {
         setValue(value + 1);
@@ -59,6 +65,23 @@ const SelectedProduct = () => {
         )
     }
 
+    const cancelOrder = () => {
+        Alert.alert('Você deseja cancelar seu pedido?',
+            'Você possui um pedido pendente',
+            [
+                { text: 'Não', style: 'cancel' },
+                { text: 'Sim', style: 'default', onPress: ()=> navigation.goBack()},
+            ]
+        )
+    }
+    const validateOrder = () => {
+        if(addres.length === 0 ){
+            navigation.navigate("CreateAddres");
+        }else {
+            navigation.navigate("SelectAddress");
+        }
+    }
+
     return (
         <Background>
             <Header>
@@ -78,6 +101,8 @@ const SelectedProduct = () => {
                         <Quantity />
                         <FinalPrice />
                     </Row>
+                    <Button title="Cancelar" type="primary" onPress={()=>cancelOrder()}/>
+                    <Button title="Confirmar" onPress={()=>validateOrder()}/>
                 </ColumButtons>
             </Content>
         </Background>

@@ -5,7 +5,7 @@ export const ButtonView = styled.TouchableOpacity`
     height: 70px;
     border-radius: 12px;
     padding: 6px;
-    margin: 7px;
+    margin-bottom: 7px;
     /* margin-bottom: 7px; */
     justify-content: center;
     align-items: center;
