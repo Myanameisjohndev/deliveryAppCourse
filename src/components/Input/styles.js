@@ -5,11 +5,12 @@ export const InputView = styled.View`
     height: 70px;
     border-radius: 12px;
     padding: 6px;
-    margin: 7px;
+    margin-bottom: 14px;
     background-color: ${({theme})=>theme.COLORS.INPUT};
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    align-self: center;
 `;
 export const TextInput = styled.TextInput`
     width: 80%;
