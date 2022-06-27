@@ -2,33 +2,48 @@ import React, { useState } from "react";
 import { Background, Content, Header } from "../../globalstyles";
 import Title from '../../components/Title';
 import Search from '../../components/Search';
+import Theme from "../../Theme";
 import {
     Column,
     Row,
     Align,
     ButtonDelete,
     Description,
-    Complement
+    Complement,
+    AddresList,
+    ContainerAddress
 } from "./styles";
 import Home from '../../assets/secondHome.svg';
 import Apartment from '../../assets/secondApartment.svg';
 import Remove from '../../assets/remove.svg';
 import { useAppContext } from "../../context";
 const SelectAddress = () => {
-
+    const { addres } = useAppContext()
+    const [selected, setSelected] = useState(null);
     const [searchValue, setSearchValue] = useState('');
-    const [address] = useState([{
-        surname: "teste",
-        street: "teste",
-        district: "teste",
-        selected: "home",
-        addresNumber: "45",
-        complement: "teste",
-        referencePoint: "teste"
-    }])
+    // const [address] = useState([
+    //     {
+    //         surname: "teste",
+    //         street: "teste",
+    //         district: "teste",
+    //         selected: "home",
+    //         addresNumber: "45",
+    //         complement: "teste",
+    //         referencePoint: "teste"
+    //     },
+    //     {
+    //         surname: "teste",
+    //         street: "teste",
+    //         district: "teste",
+    //         selected: "home",
+    //         addresNumber: "45",
+    //         complement: "teste",
+    //         referencePoint: "teste"
+    //     },
+
+    // ])
 
     const renderAddress = (item) => {
-
         return (
             <>
                 <Row>
@@ -53,11 +68,36 @@ const SelectAddress = () => {
                             <Description>{item.referencePoint}</Description>
                         </Row>
                     </Column>
-                <ButtonDelete>
-                    <Remove/>
-                </ButtonDelete>
                 </Row>
+                <ButtonDelete>
+                    <Remove />
+                </ButtonDelete>
             </>
+        )
+    }
+
+    const selectAddress = (item, index) => {
+        setSelected({ item, index });
+    }
+
+    const renderAddressSelected = (item, index) => {
+        if (selected && selected.index === index) {
+            return (
+                <ContainerAddress
+                    onPress={() => selectAddress(item, index)}
+                    style={{ borderColor: Theme.COLORS.BUTTON, borderWidth: 3 }}
+                >
+                    {renderAddress(item)}
+                </ContainerAddress>
+            )
+        }
+        return (
+            <ContainerAddress
+                onPress={() => selectAddress(item, index)}
+                style={{ borderColor: Theme.COLORS.TEXT, borderWidth: 3 }}
+            >
+                {renderAddress(item)}
+            </ContainerAddress>
         )
     }
 
@@ -75,7 +115,12 @@ const SelectAddress = () => {
                     onChangeText={setSearchValue}
                     value={searchValue}
                 />
-                {renderAddress(address[0])}
+                <AddresList
+                    contentContainerStyle={{ paddingVertical: 20 }}
+                    data={addres}
+                    keyExtractor={(_, index) => index}
+                    renderItem={({ item, index }) => renderAddressSelected(item, index)}
+                />
             </Content>
         </Background>
     )
