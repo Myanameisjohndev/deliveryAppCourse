@@ -9,15 +9,68 @@ import Apartment from '../../assets/apartment.svg';
 import SecondHome from '../../assets/secondHome.svg';
 import SecondApartment from '../../assets/secondApartment.svg';
 import Theme from '../../Theme'
+import { useAppContext } from "../../context";
+import { Alert } from 'react-native';
 
 const CreateAddres = () => {
 
+    const { createNewAddress } = useAppContext();
     const [surname, setSurname] = useState('');
+    const [street, setStreet] = useState('');
     const [district, setDistrict] = useState('');
     const [referencePoint, setReferencePoint] = useState('');
     const [complement, setComplement] = useState('');
     const [addresNumber, setAddresNumber] = useState('');
     const [selected, setSelected] = useState('');
+
+    const createAddress = () => {
+        if(surname === ""){
+            Alert.alert(
+                "Erro ao criar endereço",
+                "Por favor preencha o campo de apelido"
+            )
+        } else if(street === ""){
+            Alert.alert(
+                "Erro ao criar endereço",
+                "Por favor preencha o campo de rua"
+            )
+        }else if(district === ""){
+            Alert.alert(
+                "Erro ao criar endereço",
+                "Por favor preencha o campo de bairro"
+            )
+        }else if(referencePoint === ""){
+            Alert.alert(
+                "Erro ao criar endereço",
+                "Por favor preencha o campo de ponto de referência"
+            )
+        }else if(complement === ""){
+            Alert.alert(
+                "Erro ao criar endereço",
+                "Por favor preencha o campo de complemento"
+            )
+        }else if(addresNumber === ""){
+            Alert.alert(
+                "Erro ao criar endereço",
+                "Por favor preencha o campo de número"
+            )
+        }else if(selected === ""){
+            Alert.alert(
+                "Erro ao criar endereço",
+                "Por favor preencha o campo de selecionar o tipo de endereço"
+            )
+        }else{
+            createNewAddress(
+                surname,
+                street,
+                district,
+                selected,
+                addresNumber,
+                complement,
+                referencePoint,
+            );
+        }
+    }
 
     return (
         <Background>
@@ -27,8 +80,10 @@ const CreateAddres = () => {
             <ContentEmpty>
                 <FormScroll contentContainerStyle={{paddingBottom: 20}}>
                     <Form>
-                        <Input placeholder='Rua:'
+                        <Input placeholder='Apelido:'
                             textInput={surname} setTextInput={setSurname} />
+                        <Input placeholder='Rua:'
+                            textInput={street} setTextInput={setStreet} />
                         <Input placeholder='Bairro: '
                             textInput={district} setTextInput={setDistrict} />
                         <Input placeholder='Ponto de referência: '
@@ -70,7 +125,7 @@ const CreateAddres = () => {
                 </FormScroll>
             </ContentEmpty>
             <PositionButton >
-                <Button title='Cadastrar' onPress={()=>null}/>
+                <Button title='Cadastrar' onPress={()=>createAddress()}/>
             </PositionButton>
         </Background>
     )

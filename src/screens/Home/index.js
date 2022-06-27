@@ -51,7 +51,6 @@ const Home = () => {
   ]);
 
   const selectItem = (item) => {
-    // console.log(item)
     navigation.navigate('SelectedProduct', { item });
   }
 

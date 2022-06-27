@@ -11,14 +11,14 @@ import {
     ColumButtons,
     QuantityContainer,
     Value,
-    Row
+    Row,
 } from './styles';
-import Add from '../../assets/add.svg';
-import Less from '../../assets/less.svg';
 import Button from '../../components/Button';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAppContext } from '../../context';
+import Add from '../../assets/add.svg';
+import Less from '../../assets/less.svg';
 
 const SelectedProduct = () => {
     const { addres } = useAppContext();
@@ -36,8 +36,14 @@ const SelectedProduct = () => {
             setValue(value - 1);
         }
     }
+    
+    useEffect(() => {
+        setFinalValue(
+            (Number(item.price) * value).toFixed(2).replace(".", ",")
+        )
+    }, [value])
 
-    const Quantity = () => {
+    const SelectPrice = () => {
         return (
             <QuantityContainer>
                 <PressButton onPress={lessQuantity}>
@@ -50,12 +56,7 @@ const SelectedProduct = () => {
             </QuantityContainer>
         )
     }
-
-    useEffect(() => {
-        setFinalValue(
-            (Number(item.price) * value).toFixed(2).replace(".", ",")
-        )
-    }, [value])
+    
 
     const FinalPrice = () => {
         return (
@@ -70,14 +71,14 @@ const SelectedProduct = () => {
             'Você possui um pedido pendente',
             [
                 { text: 'Não', style: 'cancel' },
-                { text: 'Sim', style: 'default', onPress: ()=> navigation.goBack()},
+                { text: 'Sim', style: 'default', onPress: () => navigation.goBack() },
             ]
         )
     }
     const validateOrder = () => {
-        if(addres.length === 0 ){
+        if (addres.length === 0) {
             navigation.navigate("CreateAddres");
-        }else {
+        } else {
             navigation.navigate("SelectAddress");
         }
     }
@@ -98,11 +99,11 @@ const SelectedProduct = () => {
                 </ScrollDescription>
                 <ColumButtons>
                     <Row>
-                        <Quantity />
-                        <FinalPrice />
+                        <SelectPrice/>
+                        <FinalPrice/>
                     </Row>
-                    <Button title="Cancelar" type="primary" onPress={()=>cancelOrder()}/>
-                    <Button title="Confirmar" onPress={()=>validateOrder()}/>
+                    <Button title="Cancelar" type="primary" onPress={() => cancelOrder()} />
+                    <Button title="Confirmar" onPress={() => validateOrder()} />
                 </ColumButtons>
             </Content>
         </Background>

@@ -38,7 +38,8 @@ export const SmallText = styled.Text`
     color: ${({ theme }) => theme.COLORS.TEXT};
 `;
 
-export const PressButton = styled.TouchableOpacity``;
+export const PressButton = styled.TouchableOpacity`
+`;
 
 export const Header = styled.View`
     padding: 45px 35px;
