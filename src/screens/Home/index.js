@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Title from '../../components/Title';
 import Search from '../../components/Search';
 import { useAppContext } from '../../context';
 import { Background, Content, Header } from '../../globalstyles';
 import Product from '../../components/Product';
 import { FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const Home = () => {
 
@@ -53,6 +53,12 @@ const Home = () => {
   const selectItem = (item) => {
     navigation.navigate('SelectedProduct', { item });
   }
+
+  useFocusEffect(
+    useCallback(()=>{
+      setSearchValue();
+    })
+  );
 
   return (
     <Background >

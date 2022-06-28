@@ -21,7 +21,7 @@ import Add from '../../assets/add.svg';
 import Less from '../../assets/less.svg';
 
 const SelectedProduct = () => {
-    const { addres } = useAppContext();
+    const { addres, setSelectedOrder } = useAppContext();
     const { item } = useRoute().params;
     const [value, setValue] = useState(1);
     const [finalValue, setFinalValue] = useState();
@@ -76,6 +76,7 @@ const SelectedProduct = () => {
         )
     }
     const validateOrder = () => {
+        setSelectedOrder(item);
         if (addres.length === 0) {
             navigation.navigate("CreateAddres");
         } else {

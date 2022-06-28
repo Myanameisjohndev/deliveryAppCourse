@@ -18,30 +18,11 @@ import Apartment from '../../assets/secondApartment.svg';
 import Remove from '../../assets/remove.svg';
 import { useAppContext } from "../../context";
 const SelectAddress = () => {
-    const { addres } = useAppContext()
+    const { addres, selectedOrder } = useAppContext()
     const [selected, setSelected] = useState(null);
     const [searchValue, setSearchValue] = useState('');
-    // const [address] = useState([
-    //     {
-    //         surname: "teste",
-    //         street: "teste",
-    //         district: "teste",
-    //         selected: "home",
-    //         addresNumber: "45",
-    //         complement: "teste",
-    //         referencePoint: "teste"
-    //     },
-    //     {
-    //         surname: "teste",
-    //         street: "teste",
-    //         district: "teste",
-    //         selected: "home",
-    //         addresNumber: "45",
-    //         complement: "teste",
-    //         referencePoint: "teste"
-    //     },
 
-    // ])
+    console.log(selectedOrder);
 
     const renderAddress = (item) => {
         return (

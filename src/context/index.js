@@ -14,7 +14,6 @@ function ContextProvider({ children }) {
     const [selectedAddress, setSelectedAddress] = useState();
     const [selectedOrder, setSelectedOrder] = useState();
     const navigation = useNavigation();
-    const [addressLoad, setAddressLoad] = useState(false);
 
     const register = async (email, password, name) => {
         await firebase()
@@ -82,7 +81,6 @@ function ContextProvider({ children }) {
     }, [])
 
     const loadUserAddress = async () => {
-        setAddressLoad(true);
         await firestore()
             .collection('users_address')
             .doc(user.uid)
