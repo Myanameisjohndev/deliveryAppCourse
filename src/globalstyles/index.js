@@ -62,6 +62,22 @@ export const ContentEmpty = styled.View`
     justify-content: space-between;
 `;
 
+export const FooterButtons = styled.View`
+    justify-content: flex-end;
+    align-items: flex-end;
+    align-self: center;
+    width: 85%;
+    position: absolute;
+    margin-top: ${height * 0.4}px;
+`;
+
+export const FooterButtonsSecondary = styled.View`
+    align-self: center;
+    width: 85%;
+    position: absolute;
+    margin-top: ${height * 0.5}px;
+`;
+
 
 
 

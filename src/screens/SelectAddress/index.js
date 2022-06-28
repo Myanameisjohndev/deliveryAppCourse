@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Background, Content, Header } from "../../globalstyles";
+import { Background, Content, FooterButtons, FooterButtonsSecondary, Header } from "../../globalstyles";
 import Title from '../../components/Title';
 import Search from '../../components/Search';
 import Theme from "../../Theme";
+import { useNavigation } from "@react-navigation/native";
 import {
     Column,
     Row,
@@ -17,12 +18,12 @@ import Home from '../../assets/secondHome.svg';
 import Apartment from '../../assets/secondApartment.svg';
 import Remove from '../../assets/remove.svg';
 import { useAppContext } from "../../context";
+import Button from "../../components/Button";
 const SelectAddress = () => {
-    const { addres, selectedOrder } = useAppContext()
+    const { addres, selectedOrder, setSelectedAddress } = useAppContext()
     const [selected, setSelected] = useState(null);
     const [searchValue, setSearchValue] = useState('');
-
-    console.log(selectedOrder);
+    const { navigate } = useNavigation();
 
     const renderAddress = (item) => {
         return (
@@ -82,6 +83,23 @@ const SelectAddress = () => {
         )
     }
 
+    const RenderCreateNewAddress = () => {
+        return(
+            <Button
+                type="primary"
+                title="Criar endereço"
+                onPress={() => navigate("CreateAddres")}
+            />
+        )
+    }
+
+    const handleNavigationToPaymentOption = () =>{
+        if(selectedOrder && selected){
+            setSelectedAddress(selected);
+            navigate("Payment")
+        }
+    }
+
     return (
         <Background>
             <Header>
@@ -102,6 +120,20 @@ const SelectAddress = () => {
                     keyExtractor={(_, index) => index}
                     renderItem={({ item, index }) => renderAddressSelected(item, index)}
                 />
+                {selectedOrder ? (
+                    <FooterButtons>
+                        <RenderCreateNewAddress/>
+                        <Button
+                            type="secondary"
+                            title="Continuar"
+                            onPress={() => handleNavigationToPaymentOption()}
+                        />
+                    </FooterButtons>
+                ) : (
+                    <FooterButtonsSecondary>
+                        <RenderCreateNewAddress/>
+                    </FooterButtonsSecondary>
+                )}
             </Content>
         </Background>
     )
