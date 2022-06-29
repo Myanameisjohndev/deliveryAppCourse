@@ -13,6 +13,8 @@ function ContextProvider({ children }) {
     const [addres, setAddres] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState();
     const [selectedOrder, setSelectedOrder] = useState();
+    const [selectedPaymentOption, setSelectedPaymentOption] = useState();
+    const [orders, setOrders] = useState([]);
     const navigation = useNavigation();
 
     const register = async (email, password, name) => {
@@ -135,6 +137,36 @@ function ContextProvider({ children }) {
             })
     }
 
+    const createNewOrder = async() => {
+        if(selectedPaymentOption && selectedOrder && selectedAddress){
+            const order = {
+                selectedPaymentOption,
+                selectedOrder,
+                selectedAddress,
+                status: "in preparation"
+            };
+            await firestore()
+            .collection("users-orders")
+            .doc(user.uid)
+            .collection("orders")
+            .doc()
+            .set(order)
+            .then(()=>{
+                setOrders([...orders, order]);
+                Alert.alert(
+                    "Pedido feito com sucesso!",
+                    "Seu pedido foi realizado com sucesso, acompanhe o status do seu pedido"
+                )
+            })
+            .catch(()=>{
+                Alert.alert(
+                    "Erro ao criar pedido!",
+                    "Tente novamente dentro de instantes ou entre em contato com o suporte"
+                )  
+            })
+        }
+    }
+        
     return (
         <Context.Provider value={{
             user,
@@ -146,6 +178,9 @@ function ContextProvider({ children }) {
             selectedAddress,
             setSelectedOrder,
             selectedOrder,
+            setSelectedPaymentOption,
+            selectedPaymentOption,
+            createNewOrder
         }}>
             {children}
         </Context.Provider>

@@ -4,6 +4,7 @@ import Home from '../screens/Home';
 import SelectedProduct from '../screens/SelectedProduct';
 import SelectAddress from '../screens/SelectAddress';
 import CreateAddres from '../screens/CreateAddres';
+import Payment from '../screens/Payment';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ const AppRoutes = () => {
             <Stack.Screen name='SelectedProduct' component={SelectedProduct}/>
             <Stack.Screen name='SelectAddress' component={SelectAddress}/>
             <Stack.Screen name='CreateAddres' component={CreateAddres}/>
+            <Stack.Screen name='Payment' component={Payment}/>
         </Stack.Navigator>
     )
 }

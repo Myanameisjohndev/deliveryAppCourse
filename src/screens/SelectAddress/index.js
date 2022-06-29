@@ -19,6 +19,7 @@ import Apartment from '../../assets/secondApartment.svg';
 import Remove from '../../assets/remove.svg';
 import { useAppContext } from "../../context";
 import Button from "../../components/Button";
+import { Alert } from "react-native";
 const SelectAddress = () => {
     const { addres, selectedOrder, setSelectedAddress } = useAppContext()
     const [selected, setSelected] = useState(null);
@@ -97,6 +98,8 @@ const SelectAddress = () => {
         if(selectedOrder && selected){
             setSelectedAddress(selected);
             navigate("Payment")
+        }else{
+            Alert.alert("Por favor, selecione um endereço!")
         }
     }
 
@@ -104,8 +107,8 @@ const SelectAddress = () => {
         <Background>
             <Header>
                 <Title
-                    title="Seus endereços"
-                    subtitle="selecione o melhor para você"
+                    title="Seus endereços,"
+                    subtitle="Selecione o melhor para você"
                 />
             </Header>
             <Content>

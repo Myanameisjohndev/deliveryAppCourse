@@ -76,7 +76,7 @@ const SelectedProduct = () => {
         )
     }
     const validateOrder = () => {
-        setSelectedOrder(item);
+        setSelectedOrder({ item, price: finalValue, quantity: value });
         if (addres.length === 0) {
             navigation.navigate("CreateAddres");
         } else {
