@@ -14,7 +14,6 @@ function ContextProvider({ children }) {
     const [selectedAddress, setSelectedAddress] = useState();
     const [selectedOrder, setSelectedOrder] = useState();
     const [selectedPaymentOption, setSelectedPaymentOption] = useState();
-    const [orders, setOrders] = useState([]);
     const navigation = useNavigation();
 
     const register = async (email, password, name) => {

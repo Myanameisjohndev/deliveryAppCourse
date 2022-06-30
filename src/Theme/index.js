@@ -7,6 +7,6 @@ export default {
         TEXT: '#FFFFFF',
         Placeholder: '#B7B7B7',
         PREPARATION: '#C93636',
-        READY: '#31AF91',
+        DELIVERIED: '#31AF91',
     },
 };
