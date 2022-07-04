@@ -87,7 +87,7 @@ const SelectedProduct = () => {
 
     return (
         <Background>
-            <Header>
+            <Header style={{justifyContent: "flex-start"}}>
             <HeaderOptionButtons/>
             </Header>
             <Content>
