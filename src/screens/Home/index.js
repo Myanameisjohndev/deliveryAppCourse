@@ -6,6 +6,7 @@ import { Background, Content, Header } from '../../globalstyles';
 import Product from '../../components/Product';
 import { FlatList } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import HeaderOptionButtons from '../../components/HeaderOptionButtons';
 
 const Home = () => {
 
@@ -63,6 +64,7 @@ const Home = () => {
   return (
     <Background >
       <Header>
+        <HeaderOptionButtons/>
         <Title
           title={`Bem vindo ${user.name},`}
           subtitle="que bom ter você aqui"

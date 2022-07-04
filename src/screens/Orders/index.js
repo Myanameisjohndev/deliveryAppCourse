@@ -15,6 +15,7 @@ ContentOrder,
 
 } from "./styles";
 import { useAppContext } from "../../context";
+import HeaderOptionButtons from "../../components/HeaderOptionButtons";
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
@@ -53,7 +54,6 @@ const Orders = () => {
 
             });
             setOrders(data);
-            // console.log()
         })
         return () => loadOrders();
     },[])
@@ -61,6 +61,7 @@ const Orders = () => {
     return (
         <Background>
             <Header>
+            <HeaderOptionButtons/>
                 <Title
                     title="Seus pedidos,"
                     subtitle="Acompanhe em tempo real"

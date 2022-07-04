@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useAppContext } from '../../context';
 import Add from '../../assets/add.svg';
 import Less from '../../assets/less.svg';
+import HeaderOptionButtons from '../../components/HeaderOptionButtons';
 
 const SelectedProduct = () => {
     const { addres, setSelectedOrder } = useAppContext();
@@ -87,6 +88,7 @@ const SelectedProduct = () => {
     return (
         <Background>
             <Header>
+            <HeaderOptionButtons/>
             </Header>
             <Content>
                 <ContainerImage>

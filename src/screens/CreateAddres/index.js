@@ -11,6 +11,7 @@ import SecondApartment from '../../assets/secondApartment.svg';
 import Theme from '../../Theme'
 import { useAppContext } from "../../context";
 import { Alert } from 'react-native';
+import HeaderOptionButtons from "../../components/HeaderOptionButtons";
 
 const CreateAddres = () => {
 
@@ -75,6 +76,7 @@ const CreateAddres = () => {
     return (
         <Background>
             <Header>
+                <HeaderOptionButtons/>
                 <Title title="Novo endereço" subtitle="Insira seus dados" />
             </Header>
             <ContentEmpty>

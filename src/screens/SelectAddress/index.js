@@ -20,11 +20,14 @@ import Remove from '../../assets/remove.svg';
 import { useAppContext } from "../../context";
 import Button from "../../components/Button";
 import { Alert } from "react-native";
+import HeaderOptionButtons from "../../components/HeaderOptionButtons";
 const SelectAddress = () => {
     const { addres, selectedOrder, setSelectedAddress } = useAppContext()
     const [selected, setSelected] = useState(null);
     const [searchValue, setSearchValue] = useState('');
     const { navigate } = useNavigation();
+
+    // console.log(addres)
 
     const renderAddress = (item) => {
         return (
@@ -106,6 +109,7 @@ const SelectAddress = () => {
     return (
         <Background>
             <Header>
+            <HeaderOptionButtons/>
                 <Title
                     title="Seus endereços,"
                     subtitle="Selecione o melhor para você"

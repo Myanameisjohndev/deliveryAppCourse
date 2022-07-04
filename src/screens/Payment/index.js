@@ -8,6 +8,7 @@ import Card from '../../assets/card.svg';
 import Money from '../../assets/money.svg';
 import { useAppContext } from "../../context";
 import Button from "../../components/Button";
+import HeaderOptionButtons from "../../components/HeaderOptionButtons";
 const Payment = () => {
     const { setSelectedPaymentOption, selectedOrder, createNewOrder } = useAppContext()
     const [selected, setSelected] = useState(null);
@@ -17,8 +18,6 @@ const Payment = () => {
         {name: "Dinheiro", type: "money"},
     ]);
     const { navigate } = useNavigation();
-
-    console.log(selectedOrder);
 
     const renderOption = (item) => {
         return (
@@ -58,12 +57,14 @@ const Payment = () => {
         if(selected){
             setSelectedPaymentOption(selected);
             createNewOrder();
+            navigate("Orders")
         }
     }
 
     return (
         <Background>
             <Header>
+            <HeaderOptionButtons/>
                 <Title
                     title="Pagamento,"
                     subtitle="Selecione o metódo de pagamento"
