@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Background, Content, FooterButtons, FooterButtonsSecondary, Header } from "../../globalstyles";
 import Title from '../../components/Title';
 import Search from '../../components/Search';
@@ -26,6 +26,7 @@ const SelectAddress = () => {
     const [selected, setSelected] = useState(null);
     const [searchValue, setSearchValue] = useState('');
     const { navigate } = useNavigation();
+    const [addresFiltered, setAddresFiltered] = useState([]);
 
     // console.log(addres)
 
@@ -106,6 +107,26 @@ const SelectAddress = () => {
         }
     }
 
+    useEffect(() => {
+        if (searchValue === '') {
+            setAddresFiltered(addres);
+        } else {
+          const filter = addres.filter((item) => {
+            if (item.surname.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()
+              .includes(searchValue.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()) === true) {
+              if (item.surname.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()
+                .indexOf(searchValue.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()) > -1) {
+                return true;
+              } else {
+                return false;
+              }
+            }
+          });
+          setAddresFiltered(filter);
+        }
+      }, [searchValue]);
+    
+
     return (
         <Background>
             <Header>
@@ -123,7 +144,7 @@ const SelectAddress = () => {
                 />
                 <AddresList
                     contentContainerStyle={{ paddingVertical: 20 }}
-                    data={addres}
+                    data={addresFiltered}
                     keyExtractor={(_, index) => index}
                     renderItem={({ item, index }) => renderAddressSelected(item, index)}
                 />

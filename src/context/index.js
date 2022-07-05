@@ -171,6 +171,15 @@ function ContextProvider({ children }) {
         }
     }
 
+    const signoutApliccation = () => {
+        firebase()
+        .signOut()
+        .then(async()=>{
+            AsyncStorage.removeItem("user-data");
+            setUser(null);
+        })
+    }
+
     return (
         <Context.Provider value={{
             user,
@@ -184,7 +193,8 @@ function ContextProvider({ children }) {
             selectedOrder,
             setSelectedPaymentOption,
             selectedPaymentOption,
-            createNewOrder
+            createNewOrder,
+            signoutApliccation,
         }}>
             {children}
         </Context.Provider>
