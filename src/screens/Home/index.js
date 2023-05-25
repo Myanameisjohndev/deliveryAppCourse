@@ -4,63 +4,51 @@ import Search from '../../components/Search';
 import { useAppContext } from '../../context';
 import { Background, Content, Header } from '../../globalstyles';
 import Product from '../../components/Product';
-import { FlatList } from 'react-native';
+import { FlatList, Text, View, ActivityIndicator } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import HeaderOptionButtons from '../../components/HeaderOptionButtons';
+import firestore from '@react-native-firebase/firestore';
 
 const Home = () => {
 
   const { user, setSelectedOrder } = useAppContext();
   const [searchValue, setSearchValue] = useState('');
   const navigation = useNavigation();
-  const [products, setProducts] = useState([
-    {
-      url: "https://www.manollopizzaria.com.br/wp-content/uploads/2021/02/X_TUDO_DE_HAMBURGUER1-1-500x320.jpg",
-      id: 1,
-      name: "X-tudo 1 ",
-      price: "17.90",
-      description: "Pão, bife, salada, ovo, bacon, mussarela, presunto, milho e batata."
-    },
-    {
-      url: "https://www.manollopizzaria.com.br/wp-content/uploads/2021/02/X_TUDO_DE_HAMBURGUER1-1-500x320.jpg",
-      id: 2,
-      name: "X-tudo 2",
-      price: "17.90",
-      description: "Pão, bife, salada, ovo, bacon, mussarela, presunto, milho e batata."
-    },
-    {
-      url: "https://www.manollopizzaria.com.br/wp-content/uploads/2021/02/X_TUDO_DE_HAMBURGUER1-1-500x320.jpg",
-      id: 3,
-      name: "X-tudo 3",
-      price: "17.90",
-      description: "Pão, bife, salada, ovo, bacon, mussarela, presunto, milho e batata."
-    },
-    {
-      url: "https://www.manollopizzaria.com.br/wp-content/uploads/2021/02/X_TUDO_DE_HAMBURGUER1-1-500x320.jpg",
-      id: 4,
-      name: "X-tudo",
-      price: "17.90",
-      description: "Pão, bife, salada, ovo, bacon, mussarela, presunto, milho e batata."
-    },
-    {
-      url: "https://www.manollopizzaria.com.br/wp-content/uploads/2021/02/X_TUDO_DE_HAMBURGUER1-1-500x320.jpg",
-      id: 5,
-      name: "X-tudo",
-      price: "17.90",
-      description: "Pão, bife, salada, ovo, bacon, mussarela, presunto, milho e batata."
-    },
-  ]);
+  const [products, setProducts] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([])
+  const [loading, setLoading] = useState(true);
 
   const selectItem = (item) => {
     navigation.navigate('SelectedProduct', { item });
   }
+
+  const loadProducts = () => {
+    firestore()
+      .collection("products")
+      .get()
+      .then((res) => {
+        let receiveProducts = [];
+        res.forEach((item)=>{
+          receiveProducts.push(item.data());
+        })
+        setProducts(receiveProducts)
+        setProductsFiltered(receiveProducts)
+        setLoading(false)
+      }).catch((err) => {
+        setLoading(false)
+      })
+  }
+
+  useEffect(()=>{
+    loadProducts();
+  },[])
 
   useFocusEffect(
     useCallback(() => {
       setSelectedOrder();
     })
   );
+
 
   useEffect(() => {
     if (searchValue === '') {
@@ -96,13 +84,20 @@ const Home = () => {
           onChangeText={setSearchValue}
           value={searchValue}
         />
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingVertical: 20 }}
-          data={productsFiltered}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Product data={item} onPress={() => selectItem(item)} />}
-        />
+        {loading ? (
+          <>
+            <ActivityIndicator color="white" size="large" />
+            <View />
+          </>
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingVertical: 20 }}
+            data={productsFiltered}
+            keyExtractor={(_, index) => index}
+            renderItem={({ item }) => <Product data={item} onPress={() => selectItem(item)} />}
+          />
+        )}
       </Content>
     </Background>
   );

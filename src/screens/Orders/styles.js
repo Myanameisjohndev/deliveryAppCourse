@@ -39,6 +39,13 @@ export const OrderTitle = styled.Text`
     font-weight: bold;
     color: ${({theme})=> theme.COLORS.BACKGROUND};
 `;
+export const OrderPrice = styled.Text`
+    margin-left: 6px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    font-weight: bold;
+    color: ${({theme})=> theme.COLORS.BUTTON};
+`;
 
 export const OrderStatus = styled.View`
     margin-right: 16px;

@@ -4,14 +4,15 @@ import firestore from '@react-native-firebase/firestore';
 import { Background, Content, Header } from "../../globalstyles";
 import Title from '../../components/Title';
 import Theme from "../../Theme";
-import { 
-OrderImage,
-OrderStatus,
-OrderStatusText,
-OrderTitle,
-OrdersList,
-ContainerOrder,
-ContentOrder,
+import {
+    OrderImage,
+    OrderStatus,
+    OrderStatusText,
+    OrderTitle,
+    OrdersList,
+    ContainerOrder,
+    ContentOrder,
+    OrderPrice,
 
 } from "./styles";
 import { useAppContext } from "../../context";
@@ -21,47 +22,52 @@ const Orders = () => {
     const [orders, setOrders] = useState([]);
     const { user } = useAppContext();
 
-    const renderOrder = (item) => {
+
+
+    const renderOrder = (receive) => {
+        const {status} = receive;
+        const {item, quantity, price} = receive.selectedOrder;
+        const {url, name} = item;
         return (
             <ContainerOrder>
                 <ContentOrder>
-                    <OrderImage source={{uri: item.selectedOrder.item.url}}/>
-                    <OrderTitle>{item.selectedOrder.quantity} x { item.selectedOrder.item.name}</OrderTitle>
+                    <OrderImage source={{ uri:url }} />
+                    <OrderTitle>{quantity} x {name}</OrderTitle>
+                    <OrderPrice>{price}</OrderPrice>
                 </ContentOrder>
-                <OrderStatus type={item.status}>
+                <OrderStatus type={status}>
                     <OrderStatusText>
-
-                    {item.status === "in preparation" 
-                    ? 'Em preparo' : item.status === "reday"
-                    ? 'Pronto' : 'Entregue'}
+                        {status === "in preparation"
+                            ? 'Em preparo' : status === "reday"
+                                ? 'Pronto' : 'Entregue'}
                     </OrderStatusText>
                 </OrderStatus>
             </ContainerOrder>
         )
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const loadOrders = firestore()
-        .collection("users-orders")
-        .doc(user.uid)
-        .collection("orders")
-        .onSnapshot((response)=>{
-            const data = response.docs.map((doc)=>{
-                return{
-                    id: doc.id,
-                    ...doc.data(),
-                };
+            .collection("users-orders")
+            .doc(user.uid)
+            .collection("orders")
+            .onSnapshot((response) => {
+                const data = response.docs.map((doc) => {
+                    return {
+                        id: doc.id,
+                        ...doc.data(),
+                    };
 
-            });
-            setOrders(data);
-        })
+                });
+                setOrders(data);
+            })
         return () => loadOrders();
-    },[])
+    }, [])
 
     return (
         <Background>
             <Header>
-            <HeaderOptionButtons/>
+                <HeaderOptionButtons />
                 <Title
                     title="Seus pedidos,"
                     subtitle="Acompanhe em tempo real"

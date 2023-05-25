@@ -39,9 +39,7 @@ const SelectedProduct = () => {
     }
     
     useEffect(() => {
-        setFinalValue(
-            (Number(item.price) * value).toFixed(2).replace(".", ",")
-        )
+        setFinalValue((Number(item.price.replace(",", ".")) * value).toFixed(2));
     }, [value])
 
     const SelectPrice = () => {
@@ -62,7 +60,7 @@ const SelectedProduct = () => {
     const FinalPrice = () => {
         return (
             <QuantityContainer>
-                <Value>R$ {finalValue}</Value>
+                <Value>R$ {finalValue.replace(".", ",")}</Value>
             </QuantityContainer>
         )
     }
