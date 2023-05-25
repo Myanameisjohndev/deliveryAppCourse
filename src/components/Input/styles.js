@@ -12,6 +12,7 @@ export const InputView = styled.View`
     align-items: center;
     align-self: center;
 `;
+
 export const TextInput = styled.TextInput`
     width: 80%;
     height: 70px;

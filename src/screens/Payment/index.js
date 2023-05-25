@@ -3,14 +3,14 @@ import { Background, Content, FooterButtonsSecondary, Header } from "../../globa
 import Title from '../../components/Title';
 import Theme from "../../Theme";
 import { useNavigation } from "@react-navigation/native";
-import { PaymentOptionList, ContainerAddress, PaymentOptionText, ContainerOptionPayment } from "./styles";
+import { PaymentOptionList, PaymentOptionText, ContainerOptionPayment } from "./styles";
 import Card from '../../assets/card.svg';
 import Money from '../../assets/money.svg';
 import { useAppContext } from "../../context";
 import Button from "../../components/Button";
 import HeaderOptionButtons from "../../components/HeaderOptionButtons";
 const Payment = () => {
-    const { setSelectedPaymentOption, selectedOrder, createNewOrder } = useAppContext()
+    const { createNewOrder } = useAppContext()
     const [selected, setSelected] = useState(null);
     const [options] = useState([
         {name: "Cartão de crédito", type: "credit"},
@@ -55,8 +55,7 @@ const Payment = () => {
 
     const handleNavigationToOrders = () =>{
         if(selected){
-            setSelectedPaymentOption(selected);
-            createNewOrder();
+            createNewOrder(selected);
             navigate("Orders")
         }
     }

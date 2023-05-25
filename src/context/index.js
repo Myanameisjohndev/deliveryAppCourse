@@ -13,7 +13,6 @@ function ContextProvider({ children }) {
     const [addres, setAddres] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState();
     const [selectedOrder, setSelectedOrder] = useState();
-    const [selectedPaymentOption, setSelectedPaymentOption] = useState();
     const navigation = useNavigation();
 
     const register = async (email, password, name) => {
@@ -141,10 +140,10 @@ function ContextProvider({ children }) {
             })
     }
 
-    const createNewOrder = async () => {
-        if (selectedPaymentOption && selectedOrder && selectedAddress) {
+    const createNewOrder = async (payment) => {
+        if (payment && selectedOrder && selectedAddress) {
             const order = {
-                selectedPaymentOption,
+                payment,
                 selectedOrder,
                 selectedAddress,
                 status: "in preparation"
@@ -191,8 +190,6 @@ function ContextProvider({ children }) {
             selectedAddress,
             setSelectedOrder,
             selectedOrder,
-            setSelectedPaymentOption,
-            selectedPaymentOption,
             createNewOrder,
             signoutApliccation,
         }}>
