@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export const ContainerOptions = styled.View`
   flex-direction: column;
@@ -19,14 +19,8 @@ export const ContentOptions = styled.TouchableOpacity`
 `;
 
 export const OptionText = styled.Text`
-  font-size: 16px;
+  font-size: 17px;
   color: ${({theme})=>theme.COLORS.BACKGROUND};
 `;
-
-export const Row = styled.View`
-  height: 1.3px;
-  background-color: ${({theme})=>theme.COLORS.ROW_COLOR};
-`;
-
 
 
