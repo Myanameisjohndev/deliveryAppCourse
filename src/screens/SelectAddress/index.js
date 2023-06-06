@@ -22,13 +22,17 @@ import Button from "../../components/Button";
 import { Alert } from "react-native";
 import HeaderOptionButtons from "../../components/HeaderOptionButtons";
 const SelectAddress = () => {
-    const { addres, selectedOrder, setSelectedAddress } = useAppContext()
+    const { 
+        address, 
+        selectedOrder, 
+        setSelectedAddress, 
+        removeAddress, 
+        addresFiltered, 
+        setAddresFiltered 
+    } = useAppContext()
     const [selected, setSelected] = useState(null);
     const [searchValue, setSearchValue] = useState('');
     const { navigate } = useNavigation();
-    const [addresFiltered, setAddresFiltered] = useState([]);
-
-    // console.log(addres)
 
     const renderAddress = (item) => {
         return (
@@ -56,7 +60,7 @@ const SelectAddress = () => {
                         </Row>
                     </Column>
                 </Row>
-                <ButtonDelete>
+                <ButtonDelete onPress={() => removeAddress(item.docid)}>
                     <Remove />
                 </ButtonDelete>
             </>
@@ -109,9 +113,9 @@ const SelectAddress = () => {
 
     useEffect(() => {
         if (searchValue === '') {
-            setAddresFiltered(addres);
+            setAddresFiltered(address);
         } else {
-          const filter = addres.filter((item) => {
+          const filter = address.filter((item) => {
             if (item.surname.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()
               .includes(searchValue.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()) === true) {
               if (item.surname.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()

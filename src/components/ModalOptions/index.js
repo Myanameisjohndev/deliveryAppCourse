@@ -1,5 +1,5 @@
 import React from "react";
-import { ContainerOptions, ContentOptions, Row, OptionText } from "./styles";
+import { ContainerOptions, ContentOptions, OptionText } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import Close from "../../assets/remove.svg"
 import { useAppContext } from "../../context";
@@ -41,11 +41,9 @@ const ModalOptions = ({ closeModal }) => {
       <ContentOptions onPress={() => navigateRoute("SelectAddress")}>
         <OptionText>Endereços</OptionText>
       </ContentOptions>
-      <Row />
       <ContentOptions onPress={() => navigateRoute("Orders")}>
         <OptionText>Pedidos</OptionText>
       </ContentOptions>
-      <Row />
       <ContentOptions onPress={() => signout()}>
         <OptionText>Sair</OptionText>
       </ContentOptions>

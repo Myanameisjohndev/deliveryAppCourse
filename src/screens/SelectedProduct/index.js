@@ -22,7 +22,7 @@ import Less from '../../assets/less.svg';
 import HeaderOptionButtons from '../../components/HeaderOptionButtons';
 
 const SelectedProduct = () => {
-    const { addres, setSelectedOrder } = useAppContext();
+    const { address, setSelectedOrder } = useAppContext();
     const { item } = useRoute().params;
     const [value, setValue] = useState(1);
     const [finalValue, setFinalValue] = useState();
@@ -76,7 +76,7 @@ const SelectedProduct = () => {
     }
     const validateOrder = () => {
         setSelectedOrder({ item, price: finalValue, quantity: value });
-        if (addres.length === 0) {
+        if (address.length === 0) {
             navigation.navigate("CreateAddres");
         } else {
             navigation.navigate("SelectAddress");

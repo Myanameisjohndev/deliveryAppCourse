@@ -10,7 +10,8 @@ const Context = createContext();
 function ContextProvider({ children }) {
 
     const [user, setUser] = useState();
-    const [addres, setAddres] = useState([]);
+    const [address, setAddress] = useState([]);
+    const [addresFiltered, setAddresFiltered] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState();
     const [selectedOrder, setSelectedOrder] = useState();
     const navigation = useNavigation();
@@ -89,9 +90,9 @@ function ContextProvider({ children }) {
             .then((response) => {
                 const addressList = [];
                 response.forEach((item) => {
-                    addressList.push(item.data())
+                    addressList.push({...item.data(), docid: item.id})
                 })
-                setAddres(addressList)
+                setAddress(addressList)
             })
             .catch((err) => {
                 console.log(err)
@@ -130,7 +131,8 @@ function ContextProvider({ children }) {
             .set(newAddress)
             .then(() => {
                 Alert.alert('Enderço cadastrado com suceso!');
-                setAddres([...addres, newAddress])
+                setAddress([...address, newAddress])
+                setAddresFiltered([...address, newAddress])
                 navigation.navigate("SelectAddress");
             })
             .catch(() => {
@@ -179,12 +181,38 @@ function ContextProvider({ children }) {
         })
     }
 
+    const removeAddress = (docid) => {
+        Alert.alert(
+            "Excluir endereço",
+            "Você deseja remover este endereço?",
+            [
+                {text: "Não", style: "cancel"},
+                {text: "Sim", style: "destructive", onPress: () => {
+                    firestore().collection("users_address")
+                    .doc(user.uid)
+                    .collection("address")
+                    .doc(docid)
+                    .delete()
+                    .then(() => {
+                        const addressNotRemoved = address.filter(item => item.docid !==  docid);
+                        setAddress(addressNotRemoved);
+                        setAddresFiltered(addressNotRemoved);
+                        Alert.alert("Procedimento concluído", "O endereço foi removido com sucesso!")
+                    }).catch(()=>{
+                        Alert.alert("Houve um erro", "Tente novamente")
+                    })
+                }},
+            ]
+        )
+        
+    }
+
     return (
         <Context.Provider value={{
             user,
             register,
             login,
-            addres,
+            address,
             createNewAddress,
             setSelectedAddress,
             selectedAddress,
@@ -192,6 +220,9 @@ function ContextProvider({ children }) {
             selectedOrder,
             createNewOrder,
             signoutApliccation,
+            removeAddress,
+            addresFiltered, 
+            setAddresFiltered
         }}>
             {children}
         </Context.Provider>
